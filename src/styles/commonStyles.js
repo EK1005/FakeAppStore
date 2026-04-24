@@ -15,14 +15,14 @@ export const commonStyles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: colors.background,
-    padding: 16,
+    padding: 50
   },
 
   header: {
     backgroundColor: colors.primary,
-    paddingVertical: 14,
+    paddingVertical: 30,
     borderRadius: 14,
-    marginBottom: 16,
+    marginBottom: 30,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
