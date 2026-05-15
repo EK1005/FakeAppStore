@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
+//Loading created design file to use in this UI
 import { colors, commonStyles } from "../styles/commonStyles";
 
 export default function CategoryScreen({navigation})
@@ -16,20 +17,25 @@ export default function CategoryScreen({navigation})
     const [categories, setCategories] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    //When screen opens, execute fetchCategories method 
     useEffect(() => {
         fetchCategories();
     }, []);
 
+    //Use async for API
     const fetchCategories = async () => {
         try{
+            //Access to API
             const response = await fetch("https://fakestoreapi.com/products/categories");
 
+            //Error handling to make error visualise 
             if(!response.ok)
             {
                 throw new Error("Failed to fetch categories");
             }
 
             const data = await response.json();
+            //Store it into data 
             setCategories(data);
         }catch(error)
         {
@@ -41,6 +47,7 @@ export default function CategoryScreen({navigation})
         
     };
 
+    //Set title of ccategory for display
     const formatCategoryName = (c) => {
         if(c === "electronics") return "Electronics";
         if(c === "jewelery") return "Jewelery";
@@ -52,6 +59,7 @@ export default function CategoryScreen({navigation})
     //Crete UI in here 
     return(
 
+        //Set entire screen frame
         <View style={commonStyles.screen}>
             <View style={commonStyles.header}>
                 <Text style={commonStyles.headerText}>Categories</Text>
@@ -87,6 +95,7 @@ export default function CategoryScreen({navigation})
 }
 
 
+//Style sheet for label and words
 const styles = StyleSheet.create({
   categoryContainer: {
     flex: 1,

@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator, Alert, Image, ScrollView,
+  StyleSheet, Text, TouchableOpacity, View
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
 import { colors, commonStyles } from "../styles/commonStyles";
 
 export default function ProductDetailScreen({ route, navigation }) {
   const { productId } = route.params;
+
+  //Create Dispatch in here to use at below 
+  const dispatch = useDispatch();
 
   //Create array to store the product detail 
   const [product, setProduct] = useState(null);
@@ -40,6 +40,15 @@ export default function ProductDetailScreen({ route, navigation }) {
       setIsLoading(false);
     }
   };
+
+  //Create method of add to cart 
+  const handleAddToCart = () => {
+    //use created addToCart method 
+    dispatch(addToCart(product));
+
+    //Once add function done, show the alert pop-up 
+    Alert.alert("Added to Cart");
+  }
 
   if (isLoading) {
     return (
@@ -91,7 +100,8 @@ export default function ProductDetailScreen({ route, navigation }) {
             <Text style={commonStyles.outlineButtonText}>Back</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={commonStyles.button}>
+          <TouchableOpacity style={commonStyles.button}
+           onPress={handleAddToCart}>
             <Text style={commonStyles.buttonText}>Add to Cart</Text>
           </TouchableOpacity>
         </View>
